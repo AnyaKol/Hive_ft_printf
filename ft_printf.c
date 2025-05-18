@@ -6,13 +6,14 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/15 19:20:39 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:06:04 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
 static int	check_format(const char type, va_list args);
+static int	check_slash(const char type);
 
 int	ft_printf(const char *format, ...)
 {
@@ -31,9 +32,16 @@ int	ft_printf(const char *format, ...)
 		{
 			i++;
 			print_count += check_format(format[i], args);
-			if (print_count == -1)
-				break ;
 		}
+		else if (format[i] == '/')
+		{
+			i++;
+			print_count += check_slash(format[i]);
+		}
+		else
+			print_count += write(1, &format[i], 1);
+		if (print_count == -1)
+			break ;
 		i++;
 	}
 	va_end(args);
@@ -43,7 +51,22 @@ int	ft_printf(const char *format, ...)
 static int	check_format(const char type, va_list args)
 {
 	if (type == 'c')
-		return (ft_putchar_fd(va_arg(args, int), 1), 1);
+	{
+		ft_putchar_fd(va_arg(args, int), 1);
+		return (1);
+	}
 	else
 		return (0);
+}
+
+static int	check_slash(const char type)
+{
+	if (type == 'n')
+		return (write(1, "\n", 1));
+	else
+	{
+		if (write(1, "/", 1) + write(1, &type, 1) == 2)
+			return (2);
+		return (-1);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:34:42 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/15 19:06:52 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/18 18:53:17 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(void)
 	const int	*ptr = &result;
 
 	printf("\n----Test: char----\n");
-	result = printf("%c\n", 'A');
-	ft_result = ft_printf("%c\n", 'A');
+	result = printf("%c\n%c %c\n", 'A', 'b', '1');
+	ft_result = ft_printf("%c\n%c %c\n", 'A', 'b', '1');
 	printf("Printf: %i\nMy func: %i\n", result, ft_result);
 	//
 	printf("\n----Test: string----\n");
