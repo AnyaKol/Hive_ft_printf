@@ -6,20 +6,23 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/18 17:06:04 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/18 21:41:15 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static int	check_format(const char type, va_list args);
-static int	check_slash(const char type);
+static t_format	format_is_valid(const char format, );
+static int		check_format(const char type, va_list args);
+int				print_str(char *s);
 
 int	ft_printf(const char *format, ...)
 {
 	int		print_count;
+	int		result;
 	va_list	args;
 	int		i;
+	t_format	flags;
 
 	if (format == NULL)
 		return (-1);
@@ -29,23 +32,41 @@ int	ft_printf(const char *format, ...)
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
-		{
-			i++;
-			print_count += check_format(format[i], args);
-		}
-		else if (format[i] == '/')
-		{
-			i++;
-			print_count += check_slash(format[i]);
-		}
+			result = format_is_valid(format[i + 1], &flags);
 		else
-			print_count += write(1, &format[i], 1);
-		if (print_count == -1)
-			break ;
+			result = write(1, &format[i], 1);
+		if (result == -1)
+			return (-1);
+		print_count += result;
 		i++;
 	}
 	va_end(args);
 	return (print_count);
+}
+
+static int	format_is_valid(const char format, t_format *flags)
+{
+	int			i;
+
+	i = 0;
+	while (format[i] != '\0')
+	{
+		if (format[i] == '#')
+			flags->number = true;
+		else if (format[i] == '0')
+			flags->zero = true;
+		else if (format[i] == '-')
+			flags->minus = true;
+		else if (format[i] == ' ')
+			flags->space = true;
+		else if (format[i] == '+')
+			flags->plus = true;
+		else if (format[i] == '.')
+			flags->dot = true;
+		else
+			break ;
+	}
+	return (0);
 }
 
 static int	check_format(const char type, va_list args)
@@ -55,18 +76,22 @@ static int	check_format(const char type, va_list args)
 		ft_putchar_fd(va_arg(args, int), 1);
 		return (1);
 	}
+	else if (type == 's')
+		return (print_str(va_arg(args, char *)));
 	else
 		return (0);
 }
 
-static int	check_slash(const char type)
+int	print_str(char *s)
 {
-	if (type == 'n')
-		return (write(1, "\n", 1));
-	else
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (write(1, "/", 1) + write(1, &type, 1) == 2)
-			return (2);
-		return (-1);
+		if (write(1, &s[i], 1) == -1)
+			return (-1);
+		i++;
 	}
+	return (i);
 }
