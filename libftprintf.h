@@ -6,19 +6,19 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:15:01 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/18 21:15:48 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:13:54 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
-# include "libft.h"
+# include "libft/libft.h"
 # include <stdarg.h>
 
 int	ft_printf(const char *format, ...);
 
-typedef struct	s_format
+typedef struct	s_flags
 {
 	bool	number;
 	bool	zero;
@@ -27,6 +27,8 @@ typedef struct	s_format
 	bool	plus;
 	bool	dot;
 	bool	is_valid;
-}	t_format;
+	char	type;
+	int		width;
+}	t_flags;
 
 #endif

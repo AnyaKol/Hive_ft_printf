@@ -6,15 +6,17 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/18 21:41:15 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/20 21:10:18 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static t_format	format_is_valid(const char format, );
-static int		check_format(const char type, va_list args);
-int				print_str(char *s);
+static bool	format_is_valid(const char *format);
+static int	print_content(const char *format, va_list args);
+static void	fill_flags(t_flags *flags, const char *format);
+static void	check_flags(t_flags *flags);
+static char	*check_type(t_flags flags, va_list args);
 
 int	ft_printf(const char *format, ...)
 {
@@ -22,7 +24,6 @@ int	ft_printf(const char *format, ...)
 	int		result;
 	va_list	args;
 	int		i;
-	t_format	flags;
 
 	if (format == NULL)
 		return (-1);
@@ -32,9 +33,13 @@ int	ft_printf(const char *format, ...)
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
-			result = format_is_valid(format[i + 1], &flags);
+		{
+			result = -1;
+			if (format_is_valid(&format[i + 1]))
+				result = print_content(&format[i + 1], args);
+		}
 		else
-			result = write(1, &format[i], 1);
+			result = ft_putchar_fd(format[i], 1);
 		if (result == -1)
 			return (-1);
 		print_count += result;
@@ -44,54 +49,95 @@ int	ft_printf(const char *format, ...)
 	return (print_count);
 }
 
-static int	format_is_valid(const char format, t_format *flags)
+static bool	format_is_valid(const char *format)
 {
-	int			i;
+	int	i;
+	const char	*flags = "#0- +.";
+	const char	*type = "csidxXp";
 
 	i = 0;
-	while (format[i] != '\0')
-	{
-		if (format[i] == '#')
-			flags->number = true;
-		else if (format[i] == '0')
-			flags->zero = true;
-		else if (format[i] == '-')
-			flags->minus = true;
-		else if (format[i] == ' ')
-			flags->space = true;
-		else if (format[i] == '+')
-			flags->plus = true;
-		else if (format[i] == '.')
-			flags->dot = true;
-		else
-			break ;
-	}
-	return (0);
+	if (format[i] == '%')
+		return (true);
+	while (format[i] != '\0' && ft_strchr(flags, format[i]) != NULL)
+		i++;
+	while (format[i] != '\0' && ft_isdigit(format[i]) != 0)
+		i++;
+	if (format[i] != '\0' && ft_strchr(type, format[i]) != NULL)
+		return (true);
+	return (false);
 }
 
-static int	check_format(const char type, va_list args)
-{
-	if (type == 'c')
-	{
-		ft_putchar_fd(va_arg(args, int), 1);
-		return (1);
-	}
-	else if (type == 's')
-		return (print_str(va_arg(args, char *)));
-	else
-		return (0);
-}
-
-int	print_str(char *s)
+static void	fill_flags(t_flags *flags, const char *format)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (format[i] != '\0')
 	{
-		if (write(1, &s[i], 1) == -1)
-			return (-1);
+		if (format[i] == '#' && !flags->number)
+			flags->number = true;
+		else if (format[i] == '0' && !flags->zero)
+			flags->zero = true;
+		else if (format[i] == '-' && !flags->minus)
+			flags->minus = true;
+		else if (format[i] == ' ' && !flags->space)
+			flags->space = true;
+		else if (format[i] == '+' && !flags->plus)
+			flags->plus = true;
+		else if (format[i] == '.' && !flags->dot)
+			flags->dot = true;
+		else
+			break ;
 		i++;
 	}
-	return (i);
+	if (ft_isdigit(format[i]))
+		flags->width = ft_atoi(&format[i]);
+	while (ft_isdigit(format[i]))
+		i++;
+	flags->type = format[i];
+}
+
+static void	check_flags(t_flags *flags)
+{
+	flags->is_valid = true;
+	if (flags->zero && flags->minus)
+		flags->is_valid = false;
+	if (flags->space && flags->plus)
+		flags->is_valid = false;
+	if (flags->number && (flags->type != 'x' || flags->type != 'X'))
+		flags->is_valid = false;
+	if (flags->plus && (flags->type != 'd' || flags->type != 'i'))
+		flags->is_valid = false;
+	if (flags->space && (flags->type != 'd' || flags->type != 'i'))
+		flags->is_valid = false;
+}
+
+static int	print_content(const char *format, va_list args)
+{
+	int		print_count;
+	t_flags	flags;
+	char	*str_to_print;
+
+	fill_flags(&flags, format);
+	check_flags(&flags);
+	str_to_print = check_type(flags, args);
+	print_count = ft_strlen(str_to_print);
+	ft_putstr_fd(str_to_print, 1);
+	return (print_count);
+}
+
+static char	*check_type(t_flags flags, va_list args)
+{
+	if (flags.type == 'c')
+	{
+		ft_putchar_fd(va_arg(args, int), 1);
+		return("character");
+	}
+	else if (flags.type == 's')
+	{
+		ft_putstr_fd(va_arg(args, char *), 1);
+		return ("string");
+	}
+	else
+		return (0);
 }
