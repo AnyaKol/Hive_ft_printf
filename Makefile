@@ -19,6 +19,8 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRC = \
 	ft_printf.c \
+	ft_printf_format.c \
+	ft_printf_utils.c \
 
 LIB_DIR = libft
 LIB_NAME = $(LIB_DIR)/libft.a

@@ -20,13 +20,13 @@ int	main(void)
 	const int	*ptr = &result;
 
 	printf("\n----Test: char----\n");
-	result = printf("%c\n%c %c\n", 'A', 'b', '1');
-	ft_result = ft_printf("%c\n%c %c\n", 'A', 'b', '1');
+	result = printf("%4c\n%-3c%c\n", 'A', 'b', '1');
+	ft_result = ft_printf("%4c\n%-3c%c\n", 'A', 'b', '1');
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 	//
 	printf("\n----Test: string----\n");
-	result = printf("%s\n", "Hello World!");
-	ft_result = ft_printf("%s\n", "Hello World!");
+	result = printf("%4s\n", "Hello World!");
+	ft_result = ft_printf("%4s\n", "Hello World!");
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 	//
 	printf("\n----Test: int----\n");
