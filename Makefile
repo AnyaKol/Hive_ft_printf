@@ -22,6 +22,7 @@ SRC = \
 	ft_printf_flags.c \
 	ft_printf_format.c \
 	ft_printf_utils.c \
+	ft_itoa_base.c \
 
 LIB_DIR = libft
 LIB_NAME = $(LIB_DIR)/libft.a

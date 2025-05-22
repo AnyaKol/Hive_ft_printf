@@ -25,13 +25,18 @@ int	main(void)
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: string----\n");
-	result = printf("%4s\n%-8s%c%-1c", "Hello World!", "Hi", '8', '\n');
-	ft_result = ft_printf("%4s\n%-8s%c%-1c", "Hello World!", "Hi", '8', '\n');
+	result = printf("%4s\n%-8s%.5s%-1c", "Hello World!", "Hi", "Hello World!", '\n');
+	ft_result = ft_printf("%4s\n%-8s%.5s%-1c", "Hello World!", "Hi", "Hello World!", '\n');
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: int----\n");
 	result = printf("%05i %-5d %03i\n", -123, 44, 5);
 	ft_result = ft_printf("%05i %-5d %03i\n", -123, 44, 5);
+	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
+//
+	printf("\n----Test: hex----\n");
+	result = printf("%05X %-5x %03x\n", -123, 44, 5);
+	ft_result = ft_printf("%05X %-5x %03x\n", -123, 44, 5);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: pointer----\n");

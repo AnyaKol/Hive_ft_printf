@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:14:35 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/22 16:14:38 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:41:08 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ char	*format_zero(char *str)
 		i++;
 	}
 	return (str);
+}
+
+char	*format_dot_str(char *str, size_t width, size_t len)
+{
+	char	*new_str;
+
+	if (width >= len)
+		return (str);
+	new_str = ft_calloc(width + 1, sizeof(char));
+	ft_strlcpy(new_str, (const char *) str, width + 1);
+	free(str);
+	str = NULL;
+	return (new_str);
 }
