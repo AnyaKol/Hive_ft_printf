@@ -37,6 +37,7 @@ char	*print_char(int c);
 char	*format_minus(char *str, size_t	spaces_end, size_t len);
 char	*format_zero(char *str);
 char	*format_dot_str(char *str, size_t width, size_t len);
+char	*format_number(char *str, char type);
 char	*ft_itoa_base(size_t n, char type);
 
 #endif

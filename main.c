@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:34:42 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/22 17:11:26 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:28:03 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ int	main(void)
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: int----\n");
-	result = printf("%05i %-5d %03i\n", -123, 44, 5);
-	ft_result = ft_printf("%05i %-5d %03i\n", -123, 44, 5);
+	result = printf("%05i %-5d %03i\n", -123, 44, 11);
+	ft_result = ft_printf("%05i %-5d %03i\n", -123, 44, 11);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: hex----\n");
-	result = printf("%05X %-5x %03x\n", -123, 44, 5);
-	ft_result = ft_printf("%05X %-5x %03x\n", -123, 44, 5);
+	result = printf("%05X %-5x %#3X\n", -123, 44, 11);
+	ft_result = ft_printf("%05X %-5x %#3X\n", -123, 44, 11);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: pointer----\n");
-	result = printf("%p\n", ptr);
-	//ft_result = ft_printf("%p\n", ptr);
+	result = printf("%17p\n%-4p\n", ptr, ptr);
+	ft_result = ft_printf("%17p\n%-4p\n", ptr, ptr);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 	return (0);
 }
