@@ -30,9 +30,11 @@ typedef	struct s_flags
 }	t_flags;
 
 int		ft_printf(const char *format, ...);
-bool	format_is_valid(const char *format, int *format_i);
+bool	flags_are_valid(const char *format, int *format_i);
 void	fill_flags(t_flags *flags, const char *format);
 void	check_flags(t_flags *flags);
 char	*print_char(int c);
+char	*format_minus(char *str, size_t	spaces_end, size_t len);
+char	*format_zero(char *str);
 
 #endif

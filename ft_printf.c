@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/21 19:37:14 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:12:25 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 static int	print_content(const char *format, va_list args, int *format_i);
 static char	*get_str(t_flags flags, va_list args);
 static char	*format_str(char *str, t_flags flags);
-char	*format_minus(char *str, size_t	spaces_end, size_t len);
-char	*format_zero(char *str);
 
 int	ft_printf(const char *format, ...)
 {
@@ -52,7 +50,7 @@ static int	print_content(const char *format, va_list args, int *format_i)
 	t_flags	flags;
 	char	*str_to_print;
 
-	if (!format_is_valid(format, format_i))
+	if (!flags_are_valid(format, format_i))
 		return (-1);
 	fill_flags(&flags, format);
 	check_flags(&flags);
@@ -99,39 +97,6 @@ static char	*format_str(char *str, t_flags flags)
 		if (flags.zero && flags.is_valid)
 			new_str = format_zero(new_str);
 		return (new_str);
-	}
-	return (str);
-}
-
-char	*format_minus(char *str, size_t	spaces_end, size_t len)
-{
-	size_t	i;
-
-	ft_memmove(str, &str[spaces_end], len);
-	i = len;
-	while (str[i] != '\0')
-	{
-		str[i] = ' ';
-		i++;
-	}
-	return (str);
-}
-
-char	*format_zero(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (ft_strchr(str, '-') != NULL)
-	{
-		str[0] = '-';
-		i++;
-	}
-	while (str[i] != '\0')
-	{
-		if (str[i] == ' ' || str[i] == '-')
-			str[i] = '0';
-		i++;
 	}
 	return (str);
 }

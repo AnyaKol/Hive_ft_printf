@@ -5,79 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 16:31:47 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/21 16:31:49 by akolupae         ###   ########.fr       */
+/*   Created: 2025/05/22 16:14:35 by akolupae          #+#    #+#             */
+/*   Updated: 2025/05/22 16:14:38 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-bool	format_is_valid(const char *format, int *format_i)
+char	*format_minus(char *str, size_t	spaces_end, size_t len)
 {
-	int	i;
-	const char	*flags = "#0- +.";
-	const char	*type = "csidxXp%";
+	size_t	i;
 
-	i = 0;
-	while (format[i] != '\0' && ft_strchr(flags, format[i]) != NULL)
-		i++;
-	while (format[i] != '\0' && ft_isdigit(format[i]) != 0)
-		i++;
-	if (format[i] != '\0' && ft_strchr(type, format[i]) != NULL)
+	ft_memmove(str, &str[spaces_end], len);
+	i = len;
+	while (str[i] != '\0')
 	{
-		*format_i += i + 1;
-		return (true);
-	}
-	return (false);
-}
-
-void	fill_flags(t_flags *flags, const char *format)
-{
-	int	i;
-
-	i = 0;
-	*flags = (t_flags){false, false, false, false, false, false, false, 'c', 0};
-	while (format[i] != '\0')
-	{
-		if (format[i] == '#')
-			flags->number = true;
-		else if (format[i] == '0')
-			flags->zero = true;
-		else if (format[i] == '-')
-			flags->minus = true;
-		else if (format[i] == ' ')
-			flags->space = true;
-		else if (format[i] == '+')
-			flags->plus = true;
-		else if (format[i] == '.')
-			flags->dot = true;
-		else
-			break ;
+		str[i] = ' ';
 		i++;
 	}
-	if (ft_isdigit(format[i]) != 0)
-		flags->width = ft_atoi(&format[i]);
-	while (ft_isdigit(format[i]))
-		i++;
-	flags->type = format[i];
+	return (str);
 }
 
-void	check_flags(t_flags *flags)
+char	*format_zero(char *str)
 {
-	flags->is_valid = true;
-	if (flags->zero && flags->minus)
-		flags->is_valid = false;
-	if (flags->space && flags->plus)
-		flags->is_valid = false;
-	if (flags->number && (flags->type != 'x' || flags->type != 'X'))
-		flags->is_valid = false;
-	if (flags->plus && (flags->type != 'd' || flags->type != 'i'))
-		flags->is_valid = false;
-	if (flags->space && (flags->type != 'd' || flags->type != 'i'))
-		flags->is_valid = false;
-	if (flags->zero && (flags->type != 'd' || flags->type != 'i'
-		|| flags->type != 'x' || flags->type != 'X'))
-		flags->is_valid = false;
-	if (flags->dot && (flags->type == 'c' || flags->type == 'p'))
-		flags->is_valid = false;
+	size_t	i;
+
+	i = 0;
+	if (ft_strchr(str, '-') != NULL)
+	{
+		str[0] = '-';
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ' || str[i] == '-')
+			str[i] = '0';
+		i++;
+	}
+	return (str);
 }
