@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:31:47 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/21 16:31:49 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/26 14:00:22 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 bool	flags_are_valid(const char *format, int *format_i)
 {
 	int	i;
-	const char	*flags = "#0- +.";
+	const char	*flags = "#0- +";
 	const char	*type = "csidxXp%";
 
 	i = 0;
 	while (format[i] != '\0' && ft_strchr(flags, format[i]) != NULL)
+		i++;
+	while (format[i] != '\0' && ft_isdigit(format[i]) != 0)
+		i++;
+	if (format[i] == '.')
 		i++;
 	while (format[i] != '\0' && ft_isdigit(format[i]) != 0)
 		i++;
@@ -36,7 +40,7 @@ void	fill_flags(t_flags *flags, const char *format)
 	int	i;
 
 	i = 0;
-	*flags = (t_flags){false, false, false, false, false, false, true, 'c', 0};
+	*flags = (t_flags){false, false, false, false, false, true, 'c', 0, -1};
 	while (format[i] != '\0')
 	{
 		if (format[i] == '#')
@@ -49,14 +53,19 @@ void	fill_flags(t_flags *flags, const char *format)
 			flags->space = true;
 		else if (format[i] == '+')
 			flags->plus = true;
-		else if (format[i] == '.')
-			flags->dot = true;
 		else
 			break ;
 		i++;
 	}
 	if (ft_isdigit(format[i]) != 0)
 		flags->width = ft_atoi(&format[i]);
+	while (ft_isdigit(format[i]))
+		i++;
+	if (format[i] == '.')
+	{
+		i++;
+		flags->precision = ft_atoi(&format[i]);
+	}
 	while (ft_isdigit(format[i]))
 		i++;
 	flags->type = format[i];
@@ -76,7 +85,5 @@ void	check_flags(t_flags *flags)
 		flags->is_valid = false;
 	if (flags->zero && !(flags->type == 'd' || flags->type == 'i'
 		|| flags->type == 'x' || flags->type == 'X'))
-		flags->is_valid = false;
-	if (flags->dot && (flags->type == 'c' || flags->type == 'p'))
 		flags->is_valid = false;
 }

@@ -21,7 +21,11 @@ char	*ft_itoa_base(size_t n, char type)
 	char	*str;
 
 	if (n == 0)
+	{
+		if (type == 'p')
+			return (NULL);
 		digits = 1;
+	}
 	else
 		digits = count_digits(n);
 	str = ft_calloc(digits + 1, sizeof(char));

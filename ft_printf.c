@@ -6,12 +6,11 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/26 09:14:28 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:00:27 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h>
 
 static int	print_content(const char *format, va_list args, int *format_i);
 static char	*get_str(t_flags flags, va_list args);
@@ -57,10 +56,15 @@ static int	print_content(const char *format, va_list args, int *format_i)
 	fill_flags(&flags, format);
 	check_flags(&flags);
 	str_to_print = get_str(flags, args);
+	if (str_to_print == NULL)
+		str_to_print = print_null(flags.type);
 	str_to_print = format_str(str_to_print, flags);
 	print_count = ft_strlen(str_to_print);
 	ft_putstr_fd(str_to_print, 1);
 	free(str_to_print);
+	str_to_print = NULL;
+	if (!flags.is_valid)
+		return (-1);
 	return (print_count);
 }
 
@@ -74,8 +78,7 @@ static char	*get_str(t_flags flags, va_list args)
 		return (ft_itoa(va_arg(args, int)));
 	else if (flags.type == 'x' || flags.type == 'X' || flags.type == 'p')
 		return(ft_itoa_base(va_arg(args, size_t), flags.type));
-	else
-		return (NULL);
+	return (NULL);
 }
 
 static char	*format_str(char *str, t_flags flags)
@@ -85,13 +88,12 @@ static char	*format_str(char *str, t_flags flags)
 	size_t	i;
 
 	len = ft_strlen(str);
-	if (flags.dot && flags.type == 's')
-		return (format_dot_str(str, flags.width, len));
+	if (flags.precision > -1 && flags.is_valid)
+		str = format_precision(str, (size_t) flags.precision, flags.type, &len);
 	if ((flags.number && flags.is_valid) || flags.type == 'p')
-	{
-		str = format_number(str, flags.type);
-		len += 2;
-	}
+		str = format_number(str, flags.type, &len);
+	if ((flags.space || flags.plus) && flags.is_valid)
+		str = format_space_plus(str, &len, flags.plus);
 	if (flags.width > len)
 	{
 		new_str = ft_calloc(flags.width + 1, sizeof(char));
@@ -106,8 +108,8 @@ static char	*format_str(char *str, t_flags flags)
 		str = NULL;
 		if (flags.minus)
 			new_str = format_minus(new_str, i, len);
-		if (flags.zero && flags.is_valid)
-			new_str = format_zero(new_str);
+		if (flags.zero && flags.is_valid && flags.precision == -1)
+			new_str = format_zero(new_str, flags.space);
 		return (new_str);
 	}
 	return (str);
