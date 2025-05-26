@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/22 19:53:09 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/26 09:14:28 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static int	print_content(const char *format, va_list args, int *format_i)
 	t_flags	flags;
 	char	*str_to_print;
 
+	if (*format == '%')
+		return((*format_i)++, write(1, "%", 1));
 	if (!flags_are_valid(format, format_i))
 		return (-1);
 	fill_flags(&flags, format);
