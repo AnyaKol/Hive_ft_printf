@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:44:51 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 19:02:49 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:30:45 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	print_char(int c, t_flags flags)
 	i = 0;
 	if (!flags.minus)
 	{
-		while (i < flags.width)
+		while (i < flags.width - 1)
 		{
 			write(1, " ", 1);
 			i++;
@@ -29,7 +29,7 @@ int	print_char(int c, t_flags flags)
 	print_count = write(1, &c, 1);
 	if (flags.minus)
 	{
-		while (i < flags.width)
+		while (i < flags.width - 1)
 		{
 			write(1, " ", 1);
 			i++;

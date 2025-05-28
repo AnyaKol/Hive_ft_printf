@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 18:54:43 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:50:51 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static char	*format_str(char *str, t_flags flags)
 	len = ft_strlen(str);
 	if (flags.precision > -1 && flags.is_valid)
 		str = format_precision(str, flags.precision, flags.type, &len);
-	if (flags.number && flags.is_valid)
+	if (flags.number && flags.is_valid && str[0] != '0')
 	{
 		str = format_number(str, flags.type);
 		len += 2;

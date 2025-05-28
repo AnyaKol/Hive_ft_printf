@@ -6,7 +6,7 @@
 #    By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 15:29:34 by akolupae          #+#    #+#              #
-#    Updated: 2025/05/20 21:20:34 by akolupae         ###   ########.fr        #
+#    Updated: 2025/05/28 19:12:16 by akolupae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,4 +52,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: fclean all
+
+.PHONY: all clean fclean re bonus
