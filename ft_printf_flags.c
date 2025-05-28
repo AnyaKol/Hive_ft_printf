@@ -6,17 +6,17 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:31:47 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/26 14:00:22 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:57:47 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 bool	flags_are_valid(const char *format, int *format_i)
 {
-	int	i;
+	int			i;
 	const char	*flags = "#0- +";
-	const char	*type = "csidxXp%";
+	const char	*type = "csiduxXp%";
 
 	i = 0;
 	while (format[i] != '\0' && ft_strchr(flags, format[i]) != NULL)
@@ -83,7 +83,7 @@ void	check_flags(t_flags *flags)
 		flags->is_valid = false;
 	if (flags->space && !(flags->type == 'd' || flags->type == 'i'))
 		flags->is_valid = false;
-	if (flags->zero && !(flags->type == 'd' || flags->type == 'i'
-		|| flags->type == 'x' || flags->type == 'X'))
+	if (flags->zero && (flags->type == 'c' || flags->type == 's' ||
+		flags->type == 'p'))
 		flags->is_valid = false;
 }

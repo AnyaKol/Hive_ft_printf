@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 
-HDR = libftprintf.h
+HDR = ft_printf.h
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
@@ -26,19 +26,20 @@ SRC = \
 
 LIB_DIR = libft
 LIB_NAME = $(LIB_DIR)/libft.a
+LIB_HDR = $(LIB_DIR)/libft.h
 
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIB_NAME)
-	ar -rcs $(NAME) $(LIB_NAME)
+	cp $(LIB_NAME) $(NAME)
 	ar -rcs $(NAME) $(OBJ)
 
 $(LIB_NAME):
 	$(MAKE) -C $(LIB_DIR)
 
-%.o: %.c $(HDR)
+%.o: %.c $(HDR) &(LIB_HDR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:

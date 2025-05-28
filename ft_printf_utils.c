@@ -6,11 +6,11 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:44:51 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/26 18:24:10 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:49:17 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 char	*print_char(int c)
 {
@@ -19,7 +19,18 @@ char	*print_char(int c)
 	str = ft_calloc(2, sizeof(char));
 	if (str == NULL)
 		return (NULL);
-	str[0] = (char) c;
+	str[0] = (unsigned char) c;
+	return (str);
+}
+
+char	*print_ptr(unsigned long ptr)
+{
+	char	*str;
+
+	if (ptr == 0)
+		return (print_null('p'));
+	str = ft_itoa_base(ptr, BASE_HEX);
+	str = format_number(str, 'p');
 	return (str);
 }
 

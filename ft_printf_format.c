@@ -6,15 +6,15 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:14:35 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/26 18:14:32 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:36:26 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-char	*format_minus(char *str, size_t	spaces_end, size_t len)
+char	*format_minus(char *str, int spaces_end, int len)
 {
-	size_t	i;
+	int	i;
 
 	ft_memmove(str, &str[spaces_end], len);
 	i = len;
@@ -28,7 +28,7 @@ char	*format_minus(char *str, size_t	spaces_end, size_t len)
 
 char	*format_zero(char *str, bool space)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (ft_strchr(str, '-') != NULL || ft_strchr(str, '+') != NULL || space)
@@ -48,11 +48,10 @@ char	*format_zero(char *str, bool space)
 	return (str);
 }
 
-char	*format_number(char *str, char type, size_t *len)
+char	*format_number(char *str, char type)
 {
 	char	*new_str;
 
-	*len += 2;
 	if (type == 'X')
 		new_str = ft_strjoin("0X", str);
 	else
@@ -62,7 +61,7 @@ char	*format_number(char *str, char type, size_t *len)
 	return (new_str);
 }
 
-char	*format_space_plus(char *str, size_t *len, bool plus)
+char	*format_space_plus(char *str, int *len, bool plus)
 {
 	char	*new_str;
 
@@ -81,13 +80,13 @@ char	*format_space_plus(char *str, size_t *len, bool plus)
 	return (new_str);
 }
 
-char	*format_precision(char *str, size_t precision, char type, size_t *len)
+char	*format_precision(char *str, int precision, char type, int *len)
 {
 	char	*new_str;
 	int		i;
 
 	i = 0;
-	if (type == 's')
+	if (type == 's' || (type != 's' && precision == 0))
 	{
 		if (precision >= *len)
 			return (str);
