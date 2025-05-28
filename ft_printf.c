@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/26 18:00:27 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:34:07 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static char	*format_str(char *str, t_flags flags)
 	len = ft_strlen(str);
 	if (flags.precision > -1 && flags.is_valid)
 		str = format_precision(str, (size_t) flags.precision, flags.type, &len);
-	if ((flags.number && flags.is_valid) || flags.type == 'p')
+	if ((flags.number && flags.is_valid) || (flags.type == 'p' && ft_strncmp(str, "(nil)", 5) != 0))
 		str = format_number(str, flags.type, &len);
 	if ((flags.space || flags.plus) && flags.is_valid)
 		str = format_space_plus(str, &len, flags.plus);
