@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 18:38:12 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:54:43 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	print_content(const char *format, va_list args, int *format_i)
 		return (-1);
 	fill_flags(&flags, format);
 	check_flags(&flags);
+	if (flags.type == 'c')
+		return(print_char(va_arg(args, int), flags));
 	str = get_str(flags, args);
 	if (str == NULL)
 		str = print_null(flags.type);
@@ -70,9 +72,7 @@ static int	print_content(const char *format, va_list args, int *format_i)
 
 static char	*get_str(t_flags flags, va_list args)
 {
-	if (flags.type == 'c')
-		return(print_char(va_arg(args, int)));
-	else if (flags.type == 's')
+	if (flags.type == 's')
 		return (ft_strdup(va_arg(args, const char *)));
 	else if (flags.type == 'i' || flags.type == 'd')
 		return (ft_itoa(va_arg(args, int)));

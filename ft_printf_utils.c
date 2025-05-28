@@ -6,21 +6,38 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:44:51 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 17:49:17 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/28 19:02:49 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*print_char(int c)
+int	print_char(int c, t_flags flags)
 {
-	char	*str;
+	int	print_count;
+	int	i;
 
-	str = ft_calloc(2, sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	str[0] = (unsigned char) c;
-	return (str);
+	i = 0;
+	if (!flags.minus)
+	{
+		while (i < flags.width)
+		{
+			write(1, " ", 1);
+			i++;
+		}
+	}
+	print_count = write(1, &c, 1);
+	if (flags.minus)
+	{
+		while (i < flags.width)
+		{
+			write(1, " ", 1);
+			i++;
+		}
+	}
+	if (print_count != -1)
+		print_count += i;
+	return (print_count);
 }
 
 char	*print_ptr(unsigned long ptr)
