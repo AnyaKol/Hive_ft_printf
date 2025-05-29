@@ -12,15 +12,9 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# ifndef BASE_DEC
 #  define BASE_DEC "0123456789"
-# endif
-# ifndef BASE_HEX
 #  define BASE_HEX "0123456789abcdef"
-# endif
-# ifndef BASE_HEX_UPCASE
 #  define BASE_HEX_UPCASE "0123456789ABCDEF"
-# endif
 
 # include "libft/libft.h"
 # include <stdarg.h>

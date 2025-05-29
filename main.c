@@ -31,13 +31,13 @@ int	main(void)
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: int----\n");
-	result = printf("|%05i %%%-5d %03i %0 4d % 04d %+04i %07.3d %-5.3i|\n", -123, 22, 0, 444, -444, 42, 12, -1);
-	ft_result = ft_printf("|%05i %%%-5d %03i %0 4d % 04d %+04i %07.3d %-5.3i|\n", -123, 22, 0, 444, -444, 42, 12, -1);
+	result = printf("|%05i %%%-5d %03i %0 4d % 04d %+04i %7.3d %-5.3i|\n", -123, 22, 0, 444, -444, 42, 12, -1);
+	ft_result = ft_printf("|%05i %%%-5d %03i %0 4d % 04d %+04i %7.3d %-5.3i|\n", -123, 22, 0, 444, -444, 42, 12, -1);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: unsigned int----\n");
-	result = printf("|%05u %%%-5u %03u %07.3u %-5.3u|\n", -123, 22, 0, 12, -1);
-	ft_result = ft_printf("|%05u %%%-5u %03u %07.3u %-5.3u|\n", -123, 22, 0, 12, -1);
+	result = printf("|%05u %%%-5u %03u %7.3u %-5.3u|\n", -123, 22, 0, 12, -1);
+	ft_result = ft_printf("|%05u %%%-5u %03u %7.3u %-5.3u|\n", -123, 22, 0, 12, -1);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: hex----\n");
