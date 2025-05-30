@@ -6,15 +6,21 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:31:35 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/30 15:37:46 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:56:10 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# define BASE_DEC "0123456789"
-# define BASE_HEX "0123456789abcdef"
-# define BASE_HEX_UPCASE "0123456789ABCDEF"
+# ifndef BASE_DEC
+#  define BASE_DEC "0123456789"
+# endif
+# ifndef BASE_HEX
+#  define BASE_HEX "0123456789abcdef"
+# endif
+# ifndef BASE_HEX_UPCASE
+#  define BASE_HEX_UPCASE "0123456789ABCDEF"
+# endif
 
 # include "libft/libft.h"
 # include <stdarg.h>
