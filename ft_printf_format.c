@@ -16,6 +16,8 @@ char	*format_zero(char *str, bool space)
 {
 	int	i;
 
+	if (str == NULL)
+		return (NULL);
 	i = 0;
 	if (ft_strchr(str, '-') != NULL || ft_strchr(str, '+') != NULL || space)
 	{
@@ -52,10 +54,12 @@ char	*format_space_plus(char *str, bool plus)
 	char	*new_str;
 	int		len;
 
+	if (str == NULL)
+		return (NULL);
 	if (str[0] == '-')
 		return (str);
 	len = ft_strlen(str);
-	new_str = ft_calloc(len + 1, sizeof(char));
+	new_str = ft_calloc(len + 2, sizeof(char));
 	if (new_str == NULL)
 		return (NULL);
 	new_str[0] = ' ';
@@ -73,6 +77,8 @@ char	*format_width(char *str, int width, bool minus)
 	int		len;
 
 	new_str = ft_calloc(width + 1, sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
 	ft_memset(new_str, (int) ' ', width);
 	len = ft_strlen(str);
 	if (minus)

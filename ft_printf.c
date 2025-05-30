@@ -61,8 +61,7 @@ static int	print_content(const char *format, va_list args, int *format_i)
 	if (str == NULL)
 		str = print_null(flags.type);
 	str = format_str(str, flags);
-	print_count = ft_strlen(str);
-	ft_putstr_fd(str, 1);
+	print_count = ft_putstr_fd(str, 1);
 	free(str);
 	str = NULL;
 	if (!flags.is_valid)

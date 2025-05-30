@@ -6,38 +6,41 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:44:51 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 19:30:45 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:18:56 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static int	putchar_loop(int c, int n);
+
 int	print_char(int c, t_flags flags)
 {
-	int	print_count;
+	int	char_count;
+	int	space_count;
+
+	if (!flags.minus)
+		space_count = putchar_loop((int) ' ', flags.width - 1);
+	char_count = write(1, &c, 1);
+	if (flags.minus)
+		space_count = putchar_loop((int) ' ', flags.width - 1);
+	if (char_count == -1 || space_count == -1)
+		return (-1);
+	return (char_count + space_count);
+}
+
+static int	putchar_loop(int c, int n)
+{
 	int	i;
 
 	i = 0;
-	if (!flags.minus)
+	while (i < n)
 	{
-		while (i < flags.width - 1)
-		{
-			write(1, " ", 1);
-			i++;
-		}
+		if (write(1, &c, 1) == -1)
+			return (-1);
+		i++;
 	}
-	print_count = write(1, &c, 1);
-	if (flags.minus)
-	{
-		while (i < flags.width - 1)
-		{
-			write(1, " ", 1);
-			i++;
-		}
-	}
-	if (print_count != -1)
-		print_count += i;
-	return (print_count);
+	return (i);
 }
 
 char	*print_ptr(unsigned long ptr)
