@@ -6,14 +6,14 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:52:52 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 15:32:28 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:22:04 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int	count_digits(unsigned long n, char * base);
-static void	fill_str(char *str_end, unsigned long n, char * base);
+static int	count_digits(unsigned long n, char *base);
+static void	fill_str(char *str_end, unsigned long n, char *base);
 
 char	*ft_itoa_base(unsigned long n, char *base)
 {
@@ -27,11 +27,11 @@ char	*ft_itoa_base(unsigned long n, char *base)
 	str = ft_calloc(digits + 1, sizeof(char));
 	if (str == NULL)
 		return (NULL);
-	fill_str(&str[digits - 1], n,  base);
+	fill_str(&str[digits - 1], n, base);
 	return (str);
 }
 
-static int	count_digits(unsigned long n, char * base)
+static int	count_digits(unsigned long n, char *base)
 {
 	int				digits;
 	unsigned int	len;
@@ -46,7 +46,7 @@ static int	count_digits(unsigned long n, char * base)
 	return (digits);
 }
 
-static void	fill_str(char *str_end, unsigned long n, char * base)
+static void	fill_str(char *str_end, unsigned long n, char *base)
 {
 	unsigned int	len;
 

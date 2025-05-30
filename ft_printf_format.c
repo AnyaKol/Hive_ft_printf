@@ -6,25 +6,11 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:14:35 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 20:25:08 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:26:48 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*format_minus(char *str, int spaces_end, int len)
-{
-	int	i;
-
-	ft_memmove(str, &str[spaces_end], len);
-	i = len;
-	while (str[i] != '\0')
-	{
-		str[i] = ' ';
-		i++;
-	}
-	return (str);
-}
 
 char	*format_zero(char *str, bool space)
 {
@@ -61,51 +47,38 @@ char	*format_number(char *str, char type)
 	return (new_str);
 }
 
-char	*format_space_plus(char *str, int *len, bool plus)
+char	*format_space_plus(char *str, bool plus)
 {
 	char	*new_str;
+	int		len;
 
 	if (str[0] == '-')
 		return (str);
-	(*len)++;
-	new_str = ft_calloc(*len + 1, sizeof(char));
+	len = ft_strlen(str);
+	new_str = ft_calloc(len + 1, sizeof(char));
 	if (new_str == NULL)
 		return (NULL);
 	new_str[0] = ' ';
 	if (plus)
 		new_str[0] = '+';
-	ft_strlcpy(&new_str[1], (const char *) str, *len + 1);
+	ft_strlcpy(&new_str[1], (const char *) str, len + 1);
 	free(str);
 	str = NULL;
 	return (new_str);
 }
 
-char	*format_precision(char *str, int precision, char type, int *len)
+char	*format_width(char *str, int width, bool minus)
 {
 	char	*new_str;
-	int		i;
+	int		len;
 
-	i = 0;
-	if (type == 's' || (type != 's' && precision == 0))
-	{
-		if (precision >= *len)
-			return (str);
-		new_str = ft_calloc(precision + 1, sizeof(char));
-		ft_strlcpy(new_str, (const char *) str, precision + 1);
-	}
+	new_str = ft_calloc(width + 1, sizeof(char));
+	ft_memset(new_str, (int) ' ', width);
+	len = ft_strlen(str);
+	if (minus)
+		ft_memcpy(&new_str[0], (const char *) str, len);
 	else
-	{
-		if (precision < *len || (precision == *len && str[0] != '-'))
-			return (str);
-		if (str[0] == '-')
-			i = 1;
-		new_str = ft_calloc(precision + i + 1, sizeof(char));
-		new_str = ft_memset((void *) new_str, '0', precision + i);
-		if (str[0] == '-')
-			new_str[0] = '-';
-		ft_strlcpy(&new_str[i + precision - (*len - i)], &str[i], *len - i + 1);
-	}
-	*len = precision + i;
+		ft_memcpy(&new_str[width - len], (const char *) str, len);
 	free(str);
 	str = NULL;
 	return (new_str);

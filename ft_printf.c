@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:19:50 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 19:50:51 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:39:27 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static int	print_content(const char *format, va_list args, int *format_i)
 	char	*str;
 
 	if (*format == '%')
-		return((*format_i)++, write(1, "%", 1));
+		return ((*format_i)++, write(1, "%", 1));
 	if (!flags_are_valid(format, format_i))
 		return (-1);
 	fill_flags(&flags, format);
 	check_flags(&flags);
 	if (flags.type == 'c')
-		return(print_char(va_arg(args, int), flags));
+		return (print_char(va_arg(args, int), flags));
 	str = get_str(flags, args);
 	if (str == NULL)
 		str = print_null(flags.type);
@@ -79,47 +79,27 @@ static char	*get_str(t_flags flags, va_list args)
 	else if (flags.type == 'u')
 		return (ft_itoa_base(va_arg(args, unsigned int), BASE_DEC));
 	else if (flags.type == 'x')
-		return(ft_itoa_base(va_arg(args, unsigned int), BASE_HEX));
+		return (ft_itoa_base(va_arg(args, unsigned int), BASE_HEX));
 	else if (flags.type == 'X')
-		return(ft_itoa_base(va_arg(args, unsigned int), BASE_HEX_UPCASE));
+		return (ft_itoa_base(va_arg(args, unsigned int), BASE_HEX_UPCASE));
 	else if (flags.type == 'p')
-		return(print_ptr(va_arg(args, unsigned long)));
+		return (print_ptr(va_arg(args, unsigned long)));
 	return (NULL);
 }
 
 static char	*format_str(char *str, t_flags flags)
 {
-	char	*new_str;
-	int		len;
-	int		i;
-
-	len = ft_strlen(str);
 	if (flags.precision > -1 && flags.is_valid)
-		str = format_precision(str, flags.precision, flags.type, &len);
+		str = format_precision(str, flags.precision, flags.type);
 	if (flags.number && flags.is_valid && str[0] != '0')
-	{
 		str = format_number(str, flags.type);
-		len += 2;
-	}
 	if ((flags.space || flags.plus) && flags.is_valid)
-		str = format_space_plus(str, &len, flags.plus);
-	if (flags.width > len)
+		str = format_space_plus(str, flags.plus);
+	if (flags.width > (int) ft_strlen(str))
 	{
-		new_str = ft_calloc(flags.width + 1, sizeof(char));
-		i = 0;
-		while (i < flags.width - len)
-		{
-			new_str[i] = ' ';
-			i++;
-		}
-		ft_strlcpy(&new_str[i], (const char *) str, len + 1);
-		free(str);
-		str = NULL;
-		if (flags.minus)
-			new_str = format_minus(new_str, i, len);
+		str = format_width(str, flags.width, flags.minus);
 		if (flags.zero && flags.is_valid && flags.precision == -1)
-			new_str = format_zero(new_str, flags.space);
-		return (new_str);
+			str = format_zero(str, flags.space);
 	}
 	return (str);
 }

@@ -5,23 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 16:15:01 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 19:03:59 by akolupae         ###   ########.fr       */
+/*   Created: 2025/05/30 15:31:35 by akolupae          #+#    #+#             */
+/*   Updated: 2025/05/30 15:37:46 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-#  define BASE_DEC "0123456789"
-#  define BASE_HEX "0123456789abcdef"
-#  define BASE_HEX_UPCASE "0123456789ABCDEF"
+# define BASE_DEC "0123456789"
+# define BASE_HEX "0123456789abcdef"
+# define BASE_HEX_UPCASE "0123456789ABCDEF"
 
 # include "libft/libft.h"
 # include <stdarg.h>
 
-# include <stdio.h>// REMOVE
-
-typedef	struct s_flags
+typedef struct s_flags
 {
 	bool	number;
 	bool	zero;
@@ -41,11 +39,10 @@ void	check_flags(t_flags *flags);
 int		print_char(int c, t_flags flags);
 char	*print_ptr(unsigned long ptr);
 char	*print_null(char type);
-char	*format_precision(char *str, int precision, char type, int *len);
-char	*format_minus(char *str, int spaces_end, int len);
+char	*format_precision(char *str, int precision, char type);
+char	*format_width(char *str, int width, bool minus);
 char	*format_zero(char *str, bool space);
 char	*format_number(char *str, char type);
-char	*format_space_plus(char *str, int *len, bool plus);
-char	*ft_itoa_base(unsigned long n, char *base);
+char	*format_space_plus(char *str, bool plus);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 15:29:34 by akolupae          #+#    #+#              #
-#    Updated: 2025/05/28 19:12:16 by akolupae         ###   ########.fr        #
+#    Updated: 2025/05/30 15:19:57 by akolupae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ SRC = \
 	ft_printf.c \
 	ft_printf_flags.c \
 	ft_printf_format.c \
+	ft_printf_precision.c \
 	ft_printf_utils.c \
-	ft_itoa_base.c \
 
 LIB_DIR = libft
 LIB_NAME = $(LIB_DIR)/libft.a
