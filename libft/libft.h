@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:17:46 by akolupae          #+#    #+#             */
-/*   Updated: 2025/04/21 15:50:09 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:06:29 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
 int		ft_putendl_fd(char *s, int fd);
 int		ft_putnbr_fd(int n, int fd);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 
 typedef struct s_list
 {

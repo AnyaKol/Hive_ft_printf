@@ -6,13 +6,11 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 17:07:55 by akolupae          #+#    #+#             */
-/*   Updated: 2025/04/24 17:10:20 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:50:02 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_max(int a, int b);
 
 int	ft_putnbr_fd(int n, int fd)
 {
@@ -33,11 +31,4 @@ int	ft_putnbr_fd(int n, int fd)
 	if (ft_putchar_fd(ln % 10 + '0', fd) == -1 || result == -1)
 		return (-1);
 	return (result + 1);
-}
-
-static int	ft_max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
 }

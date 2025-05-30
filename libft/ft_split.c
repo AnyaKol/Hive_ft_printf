@@ -6,16 +6,16 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:27:40 by akolupae          #+#    #+#             */
-/*   Updated: 2025/04/30 12:35:30 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:03:34 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_words(char const *s, char c);
-static char		*split_word(size_t *src_i, const char *src, char c);
-static void		free_arr(char **arr);
-static void		split_str(char **arr, size_t words, char const *s, char c);
+static int	count_words(char const *s, char c);
+static char	*split_word(int *src_i, const char *src, char c);
+static void	free_arr(char **arr);
+static void	split_str(char **arr, int words, char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
@@ -30,10 +30,10 @@ char	**ft_split(char const *s, char c)
 	return (arr);
 }
 
-static void	split_str(char **arr, size_t words, char const *s, char c)
-{	
-	size_t	i;
-	size_t	j;
+static void	split_str(char **arr, int words, char const *s, char c)
+{
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -55,11 +55,11 @@ static void	split_str(char **arr, size_t words, char const *s, char c)
 	arr[words] = NULL;
 }
 
-static size_t	count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
-	size_t	i;
+	int		i;
 	bool	new_wrd;
-	size_t	words;
+	int		words;
 
 	i = 0;
 	new_wrd = true;
@@ -78,10 +78,10 @@ static size_t	count_words(char const *s, char c)
 	return (words);
 }
 
-static char	*split_word(size_t *src_i, const char *src, char c)
+static char	*split_word(int *src_i, const char *src, char c)
 {
-	size_t	i;
-	size_t	len;
+	int		i;
+	int		len;
 	char	*dest;
 
 	len = 0;
@@ -102,7 +102,7 @@ static char	*split_word(size_t *src_i, const char *src, char c)
 
 static void	free_arr(char **arr)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (arr[i] != NULL)
