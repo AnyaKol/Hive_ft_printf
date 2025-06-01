@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:14:35 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/30 15:34:21 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:18:22 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static char	*format_precision_num(char *str, int precision, int len)
 	if (str[0] == '-')
 		i = 1;
 	new_str = ft_calloc(precision + i + 1, sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
 	new_str = ft_memset((void *) new_str, '0', precision + i);
 	if (str[0] == '-')
 		new_str[0] = '-';

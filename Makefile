@@ -6,13 +6,14 @@
 #    By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 15:29:34 by akolupae          #+#    #+#              #
-#    Updated: 2025/05/30 18:58:27 by akolupae         ###   ########.fr        #
+#    Updated: 2025/06/01 18:16:37 by akolupae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
 HDR = ft_printf.h
+HDR_B = ft_printf_bonus.h
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
@@ -40,18 +41,18 @@ OBJ_B = $(SRC_B:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB_NAME)
+$(NAME): $(OBJ) $(HDR) $(LIB_NAME)
 	cp $(LIB_NAME) $(NAME)
 	ar -rcs $(NAME) $(OBJ)
 
-bonus: fclean $(OBJ_B) $(LIB_NAME)
+bonus: fclean $(OBJ_B) $(HDR_B) $(LIB_NAME)
 	cp $(LIB_NAME) $(NAME)
 	ar -rcs $(NAME) $(OBJ_B)
 
 $(LIB_NAME):
 	$(MAKE) -C $(LIB_DIR)
 
-%.o: %.c $(HDR) $(LIB_HDR)
+%.o: %.c $(LIB_HDR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
