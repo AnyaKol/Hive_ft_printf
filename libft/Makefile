@@ -6,7 +6,7 @@
 #    By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 15:29:34 by akolupae          #+#    #+#              #
-#    Updated: 2025/04/21 15:49:22 by akolupae         ###   ########.fr        #
+#    Updated: 2025/06/02 13:31:26 by akolupae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,10 +70,10 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HDR)
 	ar -rcs $(NAME) $(OBJ)
 
-%.o: %.c $(HDR)
+%.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
@@ -84,4 +84,5 @@ fclean: clean
 
 re: fclean all
 
+.SECONDARY: $(OBJ)
 .PHONY: all clean fclean re

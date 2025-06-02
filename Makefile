@@ -6,7 +6,7 @@
 #    By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 15:29:34 by akolupae          #+#    #+#              #
-#    Updated: 2025/06/01 18:16:37 by akolupae         ###   ########.fr        #
+#    Updated: 2025/06/02 13:29:52 by akolupae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ bonus: fclean $(OBJ_B) $(HDR_B) $(LIB_NAME)
 	cp $(LIB_NAME) $(NAME)
 	ar -rcs $(NAME) $(OBJ_B)
 
-$(LIB_NAME):
+$(LIB_NAME): $(LIB_HDR)
 	$(MAKE) -C $(LIB_DIR)
 
 %.o: %.c $(LIB_HDR)
@@ -65,4 +65,5 @@ fclean: clean
 
 re: fclean all
 
+.SECONDARY: $(OBJ) $(OBJ_B)
 .PHONY: all clean fclean re bonus

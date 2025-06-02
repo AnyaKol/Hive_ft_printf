@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:34:42 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/28 20:28:09 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:34:43 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int	main(void)
 	result = printf("|%4s%-8s%8.5s%-10s|\n", "Hello World!", "", "Hello World!", null_ptr);
 	ft_result = ft_printf("|%4s%-8s%8.5s%-10s|\n", "Hello World!", "", "Hello World!", null_ptr);
 	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
+//
+//	printf("\n----Test: empty string----\n");
+//	result = printf("|% s,% s|\n", NULL, null_ptr);
+//	ft_result = ft_printf("|% s|\n", "");
+//	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
 //
 	printf("\n----Test: int----\n");
 	result = printf("|%05i %%%-5d %03i %0 4d % 04d %+04i %7.3d %-5.3i|\n", -123, 22, 0, 444, -444, 42, 12, -1);
