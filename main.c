@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:34:42 by akolupae          #+#    #+#             */
-/*   Updated: 2025/06/01 18:34:43 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:38:48 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	main(void)
 	const int	*ptr = &result;
 	const char	*null_ptr = NULL;
 
+	printf("\n----Test: %%----\n");
+	result = printf("|%% %5% %-3% %%|\n");
+	ft_result = ft_printf("|%% %5% %-3% %%|\n");
+	printf("Printf: %i\nMy fun: %i\n", result, ft_result);
+//
 	printf("\n----Test: char----\n");
 	result = printf("|%4c%%%-3c\\zero: %c number: %c|%c", 'A', 'b', 0, 55, '\n');
 	ft_result = ft_printf("|%4c%%%-3c\\zero: %c number: %c|%c", 'A', 'b', 0, 55, '\n');

@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:31:47 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/30 15:06:07 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:07:29 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fill_flags(t_flags *flags, const char *format)
 	int	i;
 
 	i = 0;
-	*flags = (t_flags){false, false, false, false, false, true, 'c', 0, -1};
+	*flags = (t_flags){false, false, false, false, false, true, '\0', 0, -1};
 	while (format[i] != '\0' && letter_is_flag(flags, format[i]))
 		i++;
 	if (ft_isdigit(format[i]) != 0)
@@ -61,16 +61,22 @@ void	fill_flags(t_flags *flags, const char *format)
 
 static bool	letter_is_flag(t_flags *flags, const char c)
 {
-	if (c == '#')
-		return (flags->number = true, true);
-	else if (c == '0')
-		return (flags->zero = true, true);
-	else if (c == '-')
-		return (flags->minus = true, true);
-	else if (c == ' ')
-		return (flags->space = true, true);
-	else if (c == '+')
-		return (flags->plus = true, true);
+	const char	*type = "#0- +";
+
+	if (ft_strchr(type, c) != NULL)
+	{
+		if (c == '#')
+			flags->number = true;
+		else if (c == '0')
+			flags->zero = true;
+		else if (c == '-')
+			flags->minus = true;
+		else if (c == ' ')
+			flags->space = true;
+		else if (c == '+')
+			flags->plus = true;
+		return (true);
+	}
 	return (false);
 }
 

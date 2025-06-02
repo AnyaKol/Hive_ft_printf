@@ -6,7 +6,7 @@
 /*   By: akolupae <akolupae@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:44:51 by akolupae          #+#    #+#             */
-/*   Updated: 2025/05/30 18:18:56 by akolupae         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:59:04 by akolupae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int	print_char(int c, t_flags flags)
 	return (char_count + space_count);
 }
 
-static int	putchar_loop(int c, int n)
+static int	putchar_loop(int c, int width)
 {
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (i < width)
 	{
 		if (write(1, &c, 1) == -1)
 			return (-1);

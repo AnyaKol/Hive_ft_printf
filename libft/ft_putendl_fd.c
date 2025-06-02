@@ -17,7 +17,7 @@ int	ft_putendl_fd(char *s, int fd)
 	int	result;
 
 	result = ft_putstr_fd(s, fd);
-	if (result == -1 || write(fd, "\n", 1) == -1)
-		return (-1);
-	return (result + 1);
+	if (result != -1 && write(fd, "\n", 1) != -1)
+		return (result + 1);
+	return (-1);
 }
